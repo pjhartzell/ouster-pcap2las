@@ -1,5 +1,5 @@
 # pcap2las
-Convert an Ouster PCAP file to an LAS or LAZ file. The new LAS or LAZ file is written to the same location as the PCAP file and has the same name as the PCAP file.
+Convert an Ouster PCAP file to an LAS or LAZ file. The new LAS or LAZ file is written to the same location as the PCAP file and has the same name as the PCAP file. The new file uses LAS version 1.4, point format 1, and includes the following extra dimensions: "nanoseconds", "range", "signal", "near_ir", and "reflectivity".
 
 ## Install
 1. Clone or download this repo.
@@ -20,6 +20,7 @@ Convert an Ouster PCAP file to an LAS or LAZ file. The new LAS or LAZ file is wr
     * `format`: Export a LAS or LAZ format file. [`las` or `laz`; default = `laz`]
 
 ## Probable
-* PCAP files can get huge. For very large PCAP files, this tool will use up your memory and either fail or take forever to complete.
-    * Chunked output (i.e., multiple LAS files) will likely be desired.
-    * We could probably set it up such that the `chunk-size` option also controls the chunked LAS output.
+* PCAP files can get huge. For very large PCAP files, this tool will use up your memory and either fail or take forever to complete. 
+* If this is the case, we can modify the algorithm in a few possible ways:
+    * [Chunk the output](https://laspy.readthedocs.io/en/latest/examples.html#using-chunked-reading-writing) (i.e., create multiple LAS files) with [laspy](https://laspy.readthedocs.io/en/latest/index.html).
+    * Or use [laspy](https://laspy.readthedocs.io/en/latest/index.html)'s [chunked writing](https://laspy.readthedocs.io/en/latest/basic.html#chunked-writing) ability to create a single (very large) LAS or LAZ file.
